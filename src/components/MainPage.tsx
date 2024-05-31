@@ -112,7 +112,8 @@ export function MainPage() {
                 {results.map((result, index) => (
     <div key={index} className="mb-4 p-4 border rounded">
         <a href={filter === 'video' ? `https://www.youtube.com/watch?v=${result.id?.videoId}` : result.link} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
-            <h2 className="text-xl font-bold">{filter === 'video' ? result.snippet?.title : result.title}</h2>
+        <h2 className="text-xl font-bold">{filter === 'video' ? (result.snippet?.title || '') : (result.title || '')}</h2>
+
         </a>
         <p className="text-gray-600">{filter === 'video' ? result.snippet?.description : result.snippet}</p>
     </div>
