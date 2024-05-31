@@ -6,24 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 
-interface SearchResult {
-  id: {
-      videoId: string;
-  };
-  link: string;
-  snippet: {
-      title: string;
-      description: string;
-  };
-}
-
-// Then define the state type
-
-
-
 export function MainPage() {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState<SearchResult[]>([]);
+    const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [filter, setFilter] = useState('');
@@ -109,16 +94,14 @@ export function MainPage() {
                 {loading && <p className="text-center text-gray-600">Loading...</p>}
                 {error && <p className="text-center text-red-600">{error}</p>}
                 <div className="mt-6">
-                {results.map((result, index) => (
-    <div key={index} className="mb-4 p-4 border rounded">
-        <a href={filter === 'video' ? `https://www.youtube.com/watch?v=${result.id?.videoId}` : result.link} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
-        <h2 className="text-xl font-bold">{filter === 'video' ? (result.snippet?.title || '') : (result.title || '')}</h2>
-
-        </a>
-        <p className="text-gray-600">{filter === 'video' ? result.snippet?.description : result.snippet}</p>
-    </div>
-))}
-
+                    {results.map((result, index) => (
+                        <div key={index} className="mb-4 p-4 border rounded">
+                            <a href={filter === 'video' ? `https://www.youtube.com/watch?v=${result.id.videoId}` : result.link} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                <h2 className="text-xl font-bold">{filter === 'video' ? result.snippet.title : result.title}</h2>
+                            </a>
+                            <p className="text-gray-600">{filter === 'video' ? result.snippet.description : result.snippet}</p>
+                        </div>
+                    ))}
                 </div>
                 {showPagination && ( // Render pagination only if showPagination is true
                     <div className="flex justify-between">
