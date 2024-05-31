@@ -4,10 +4,24 @@
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+interface SearchResult {
+  id: {
+      videoId: string;
+  };
+  link: string;
+  snippet: {
+      title: string;
+      description: string;
+  };
+}
+
+// Then define the state type
+
+
 
 export function MainPage() {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<SearchResult[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [filter, setFilter] = useState('');
